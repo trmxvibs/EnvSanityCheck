@@ -1,4 +1,5 @@
 # envcheck.py
+# tool creat bot Lokesh Kumar
 
 import os
 import click
@@ -20,7 +21,7 @@ def load_required_variables(file_path: str) -> List[str]:
                     required_vars.append(line)
         return required_vars
     except FileNotFoundError:
-        click.echo(f"❌ ERROR: Specification file '{file_path}' not found. Did you create it?", err=True)
+        click.echo(f" ERROR: Specification file '{file_path}' not found. Did you create it?", err=True)
         return []
 
 def load_dotenv_vars(file_path: str) -> dict:
@@ -46,7 +47,7 @@ def envsanitycheck(spec: str):
     """
     EnvSanityCheck: Checks if all required environment variables for the project are set.
     """
-    click.echo("\n--- 🛡️ EnvSanityCheck: Starting Sanity Check ---")
+    click.echo("\n---  EnvSanityCheck: Starting Sanity Check ---")
     
     # 1. Load required variables list
     required_vars = load_required_variables(spec)
@@ -78,25 +79,26 @@ def envsanitycheck(spec: str):
     
     # A. Missing Variables
     if missing_vars:
-        click.echo("\n❌ MISSING VARIABLES:")
+        click.echo("\n MISSING VARIABLES:")
         for var in missing_vars:
             click.echo(f"  - {var}")
         click.echo("  -> Please add these to your .env file or system environment.")
 
     # B. Empty Variables
     if empty_vars:
-        click.echo("\n⚠️ EMPTY VARIABLES:")
+        click.echo("\n EMPTY VARIABLES:")
         for var in empty_vars:
             click.echo(f"  - {var}")
         click.echo("  -> These are present but have an empty value.")
 
     # C. Success / Summary
     if not missing_vars and not empty_vars:
-        click.echo(f"\n✅ SUCCESS! All {found_count} required variables are set correctly.")
+        click.echo(f"\n SUCCESS! All {found_count} required variables are set correctly.")
         click.echo("--- EnvSanityCheck: Finished ---")
     else:
         click.echo(f"\n--- EnvSanityCheck: {len(missing_vars)} Missing, {len(empty_vars)} Empty ---")
         click.echo("Please fix the errors listed above.")
 
 if __name__ == '__main__':
+
     envsanitycheck()
