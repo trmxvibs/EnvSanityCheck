@@ -1,8 +1,7 @@
 # envcheck.py
 # made by Lokesh kumar termux bot
 # youtube.com/termux2
-
-# envcheck.py (Updated with Type Checking)
+# Updated with Type Checking
 
 import os
 import sys
@@ -79,15 +78,22 @@ def load_required_variables(file_path: str) -> Dict[str, str]:
         sys.exit(1)
 
 def load_dotenv_vars(file_path: str) -> dict:
-    # (Function logic remains the same)
+    """Loads variables from a simple .env file, ignoring inline comments."""
     dotenv_vars = {}
     try:
         with open(file_path, 'r') as f:
             for line in f:
                 line = line.strip()
                 if line and not line.startswith('#'):
+                    # 1. Split line by = to get KEY and VALUE string
                     if '=' in line:
                         key, value = line.split('=', 1)
+                        
+                        # 2. NEW FIX: Remove inline comments starting with '#'
+                        if '#' in value:
+                            value = value.split('#', 1)[0]
+                        
+                        # 3. Clean up leading/trailing spaces and quotes
                         dotenv_vars[key.strip()] = value.strip().strip('"').strip("'")
         return dotenv_vars
     except FileNotFoundError:
