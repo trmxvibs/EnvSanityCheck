@@ -1,7 +1,8 @@
 # envcheck.py
-# tool creat bot Lokesh Kumar
-
+# made by Lokesh kumar termux bot
+# youtube.com/termux2
 import os
+import sys 
 import click
 from typing import List
 
@@ -22,7 +23,8 @@ def load_required_variables(file_path: str) -> List[str]:
         return required_vars
     except FileNotFoundError:
         click.echo(f" ERROR: Specification file '{file_path}' not found. Did you create it?", err=True)
-        return []
+       sys.exit(1)
+        return [] # Unreachable but kept for type hinting
 
 def load_dotenv_vars(file_path: str) -> dict:
     """Loads variables from a simple .env file."""
@@ -52,12 +54,12 @@ def envsanitycheck(spec: str):
     # 1. Load required variables list
     required_vars = load_required_variables(spec)
     if not required_vars:
+        # load_required_variables
         return
         
-    # 2. Load available variables from .env and system environment
+    # 2. Load available variables
     dotenv_vars = load_dotenv_vars(DOTENV_FILE_NAME)
     
-    # System variables take precedence over .env file variables
     all_available_vars = {**dotenv_vars, **os.environ}
     
     missing_vars = []
@@ -77,28 +79,33 @@ def envsanitycheck(spec: str):
     
     # 4. Report the output
     
-    # A. Missing Variables
+    is_failing = bool(missing_vars or empty_vars)
+
     if missing_vars:
         click.echo("\n MISSING VARIABLES:")
         for var in missing_vars:
             click.echo(f"  - {var}")
         click.echo("  -> Please add these to your .env file or system environment.")
 
-    # B. Empty Variables
     if empty_vars:
         click.echo("\n EMPTY VARIABLES:")
         for var in empty_vars:
             click.echo(f"  - {var}")
         click.echo("  -> These are present but have an empty value.")
 
-    # C. Success / Summary
-    if not missing_vars and not empty_vars:
+    # 5. Determine Exit Code
+    
+    if not is_failing:
         click.echo(f"\n SUCCESS! All {found_count} required variables are set correctly.")
         click.echo("--- EnvSanityCheck: Finished ---")
+        # Success (Exit 0)
+        sys.exit(0)
     else:
         click.echo(f"\n--- EnvSanityCheck: {len(missing_vars)} Missing, {len(empty_vars)} Empty ---")
         click.echo("Please fix the errors listed above.")
+        # Failure (Exit 1)
+        sys.exit(1)
+
 
 if __name__ == '__main__':
-
     envsanitycheck()
