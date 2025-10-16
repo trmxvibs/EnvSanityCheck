@@ -21,6 +21,11 @@ You need Python 3.6+ installed.
 ### 2. Installation
 
 EnvSanityCheck now requires the click and ruamel.yaml libraries.
+### Install directly from [PyPI](https://pypi.org/project/envsanitycheck/) using pip:
+
+```python
+pip install envsanitycheck
+```
 
 # Clone the repository
 ```bash
