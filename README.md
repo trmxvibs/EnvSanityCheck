@@ -1,44 +1,52 @@
 # EnvSanityCheck: The Advanced Environment Validator
+
+[![CI Status](https://github.com/trmxvibs/EnvSanityCheck/actions/workflows/ci.yml/badge.svg)](https://github.com/trmxvibs/EnvSanityCheck/actions/workflows/ci.yml)
+
 ### Don't let a missing or malformed configuration ruin your deployment. 
 ### EnvSanityCheck is a robust, lightweight Python CLI tool that guarantees all your project's essential environment variables are correctly defined and typed. 
 ### It's the ultimate gatekeeper for your project's configuration integrity.
 
-## Key Features
-| Feature               | Description                                                                                          | Benefit                                               |
-| --------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| **Type Validation**   | Checks for integer, boolean, and float types, preventing errors like setting `PORT="eighty"`.        | Ensures data integrity at setup.                      |
-| **CI/CD Ready**       | Uses standard Exit Codes (0/1) to automatically fail deployment pipelines if configuration is wrong. | Essential for automated deployments.                  |
-| **Structured Output** | Provides reports in plain text, JSON, or YAML format.                                                | Allows easy integration with other scripts and tools. |
-| **Cross-Platform**    | Works with Python, Node.js, Go, PHP, Java, and any project using `.env` files.                       | Universal utility for any developer team.             |
-| **Smart Parsing**     | Correctly handles inline comments (`# comments`) in your `.env` file values.                         | More flexible and developer-friendly.                 |
+---
 
+## Key Features
+| Feature | Description | Benefit |
+| :--- | :--- | :--- |
+| **Type Validation** | Checks for integer, boolean, and float types, preventing errors like setting `PORT="eighty"`. | Ensures data integrity at setup. |
+| **CI/CD Ready** | Uses standard Exit Codes (0/1) to automatically fail deployment pipelines if configuration is wrong. | Essential for automated deployments. |
+| **Structured Output** | Provides reports in plain text, JSON, or YAML format. | Allows easy integration with other scripts and tools. |
+| **Cross-Platform** | Works with Python, Node.js, Go, PHP, Java, and any project using `.env` files. | Universal utility for any developer team. |
+| **Smart Parsing** | Correctly handles inline comments (`# comments`) in your `.env` file values. | More flexible and developer-friendly. |
+
+---
 
 ## Quick Start: Installation
 ### 1. Prerequisites
 
-You need Python 3.6+ installed.
+You need **Python 3.6+** installed.
 
-### 2. Installation
+### 2. Installation (Recommended)
 
-EnvSanityCheck now requires the click and ruamel.yaml libraries.
-### Install directly from [PyPI](https://pypi.org/project/envsanitycheck/) using pip:
+EnvSanityCheck is installed directly from PyPI. This is the simplest way to use the tool in any environment (including CI/CD, Linux, or Windows).
 
-```python
+```bash
 pip install envsanitycheck
 ```
 
-# Clone the repository
-```bash
-git clone https://github.com/trmxvibs/EnvSanityCheck.git
+### 3. Development Setup (Optional)
+If you wish to contribute or run tests:
+```sh
+git clone [https://github.com/trmxvibs/EnvSanityCheck.git](https://github.com/trmxvibs/EnvSanityCheck.git)
 cd EnvSanityCheck
+```
 
-# Install dependencies (Click and YAML parser)
-pip install -r requirements.txt
+### Install the package and its dependencies in editable mode
+```sql
+pip install -e .
 ```
 
 ## A to Z Configuration & Usage
 
-The tool operates based on a single blueprint file: env.spec
+The tool operates based on a single blueprint file: `env.spec`
 
 ### Step 1: Define the Specification (env.spec)
 
@@ -69,7 +77,7 @@ MAX_REQUESTS: integer
 
 Execute the script from your terminal:
 ```sh
-python envcheck.py
+envcheck
 ```
 
 ## Reporting: Understanding the Output
