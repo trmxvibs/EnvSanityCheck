@@ -28,7 +28,7 @@ jobs:
         python -m pip install --upgrade pip
         # Install dependencies needed for both the project and testing (click, ruamel.yaml, pytest)
         pip install click ruamel.yaml pytest
-        
+        pip install -e
     - name: Run tests with pytest
       run: |
         # Run pytest command from the root directory
