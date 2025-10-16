@@ -1,0 +1,35 @@
+# .github/workflows/ci.yml
+
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.8", "3.9", "3.10", "3.11" ]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # Install dependencies needed for both the project and testing (click, ruamel.yaml, pytest)
+        pip install click ruamel.yaml pytest
+        
+    - name: Run tests with pytest
+      run: |
+        # Run pytest command from the root directory
+        pytest
