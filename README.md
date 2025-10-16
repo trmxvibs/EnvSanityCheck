@@ -145,6 +145,29 @@ python envcheck.py
 echo "Configuration validated successfully. Starting deployment."
 ```
 
+# ❓ FAQ: Clarifying the Scope
+
+Here are common questions regarding the scope and purpose of EnvSanityCheck:
+
+### 1. How is EnvSanityCheck different from Pydantic Settings?
+
+Pydantic Settings is the **gold standard for configuration validation at the application runtime** (inside the Python application). EnvSanityCheck is a **CLI utility for pre-runtime, CI/CD validation**.
+
+| Feature | EnvSanityCheck | Pydantic Settings |
+| :--- | :--- | :--- |
+| **Validation Point** | CI/CD Pre-Check (Fails the build fast) | Application Runtime (Fails on app start) |
+| **Scope** | **Language-Agnostic** (Validates config for Node/Go/PHP/Python) | Python-only |
+| **Data Types** | Basic types (string, integer, boolean) | Advanced structures (complex types, models, etc.) |
+
+### 2. Should I use this to validate Production Secrets?
+
+**No, absolutely not.** Production secrets (API keys, credentials) should never be stored in plaintext files in the repository or validated directly within the CI pipeline.
+
+* **Best Practice:** Secrets should be loaded at runtime from a secure **Secrets Vault** (e.g., HashiCorp Vault, AWS Secrets Manager) and validated by the application's runtime logic (e.g., Pydantic).
+* **EnvSanityCheck Use:** The tool is designed to validate **non-sensitive infrastructure configuration** (e.g., `SERVICE_PORT`, `LOG_LEVEL`, `DEBUG_MODE`) and catch configuration drift errors in **development** and **staging** environments *before* a deployment starts.
+
+
+
 
 ## Contribution & License
 
