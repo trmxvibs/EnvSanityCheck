@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages # find_packages को import करें
 import os
 
 # --- 1. Dependencies List ---
@@ -16,9 +16,8 @@ except FileNotFoundError:
 
 setup(
     name='envsanitycheck',
-    version='1.0.2', # Final stable version
-    packages=['envsanitycheck'], # FIX: Explicitly include package
-    
+    version='1.0.3', # Updated version
+    packages=find_packages(), 
     # 3. Dependencies
     install_requires=REQUIRED_PACKAGES,
     
