@@ -78,6 +78,7 @@ MAX_REQUESTS: integer
 Execute the script from your terminal:
 ```sh
 envcheck
+
 ```
 
 ## Reporting: Understanding the Output
