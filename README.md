@@ -1,4 +1,4 @@
-# EnvSanityCheck: The Advanced Environment Validator
+# EnvSanityCheck: The Advanced Environment Validator  
 
 [![CI Status](https://github.com/trmxvibs/EnvSanityCheck/actions/workflows/ci.yml/badge.svg)](https://github.com/trmxvibs/EnvSanityCheck/actions/workflows/ci.yml)
 
